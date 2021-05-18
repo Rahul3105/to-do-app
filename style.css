@@ -86,8 +86,11 @@ html {
 }
 
 .lists > i:first-child {
-  /* display: none; */
+  visibility: hidden;
   margin-left: 1rem;
+}
+.checkDisplayVisible {
+  visibility: visible !important;
 }
 .workDone {
   text-decoration: line-through;
