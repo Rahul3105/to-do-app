@@ -42,10 +42,11 @@ function addList() {
     let newList = document.createElement("div");
     newList.classList = "lists";
     newList.id = `${ind}`;
-    newList.onclick = listWorkDone.bind(newList, ind);
-    newList.innerHTML = `<i class="fas fa-check"></i>
-    <p>${elem}</p>
-    <i class="fas fa-times" onclick='deleteList(${ind})'></i>`;
+    newList.innerHTML = `<div class="markCompletedCont" onclick = 'listWorkDone(${ind})'>
+                    <i class="fas fa-check"></i>
+                    <p>${elem}</p>
+                </div>
+                <i class="fas fa-times" onclick='deleteList(${ind})'></i>`;
     listContainer.append(newList);
   });
   if (listsObj.length == 0) {
@@ -58,12 +59,16 @@ function addList() {
 
 function listWorkDone(argu) {
   let list = document.getElementById(argu);
-  if (list.classList.contains("workDone")) {
-    list.classList.remove("workDone");
-    list.children[0].classList.remove("checkDisplayVisible");
+  let contentArea = list.children[0];
+  let pElem = contentArea.children[1];
+  if (contentArea.classList.contains("workDone")) {
+    contentArea.classList.remove("workDone");
+    contentArea.children[0].classList.remove("checkDisplayVisible");
+    pElem.classList.remove("line-through");
   } else {
-    list.classList.add("workDone");
-    list.children[0].classList.add("checkDisplayVisible");
+    contentArea.classList.add("workDone");
+    contentArea.children[0].classList.add("checkDisplayVisible");
+    pElem.classList.add("line-through");
   }
 }
 //list work done logic ends here

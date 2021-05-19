@@ -47,7 +47,6 @@ html {
 }
 /* from here listContainer starts means list area */
 #listContainer {
-  /* border: 1px solid black; */
   margin-top: 2rem;
 }
 #listContainer > .lists {
@@ -58,7 +57,6 @@ html {
   min-height: 4rem;
   max-height: auto;
   position: relative;
-  align-items: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -67,7 +65,7 @@ html {
 .lists:hover {
   background: rgba(190, 75, 219, 0.452);
 }
-.lists > i:nth-child(3) {
+.lists > i:nth-child(2) {
   position: absolute;
   right: 0rem;
   background: white;
@@ -77,24 +75,33 @@ html {
   align-items: center;
   justify-content: center;
 }
-.lists > i:nth-child(3):hover {
+.lists > i:nth-child(2):hover {
   background: rgb(190, 75, 219);
   color: white !important;
 }
-.lists > p {
-  margin-left: 2rem;
+.lists > .markCompletedCont {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid black; */
+  width: 94%;
 }
 
-.lists > i:first-child {
+.markCompletedCont > i:first-child {
   visibility: hidden;
-  margin-left: 1rem;
+  margin: 0 1rem;
 }
 .checkDisplayVisible {
   visibility: visible !important;
 }
+#temp {
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
 .workDone {
-  text-decoration: line-through;
   background: rgba(190, 75, 219, 0.452);
+}
+.line-through {
+  text-decoration: line-through;
 }
 @media (max-width: 882px) {
   html {
