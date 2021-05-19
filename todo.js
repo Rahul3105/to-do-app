@@ -61,15 +61,10 @@ function listWorkDone(argu) {
   let list = document.getElementById(argu);
   let contentArea = list.children[0];
   let pElem = contentArea.children[1];
-  if (contentArea.classList.contains("workDone")) {
-    contentArea.classList.remove("workDone");
-    contentArea.children[0].classList.remove("checkDisplayVisible");
-    pElem.classList.remove("line-through");
-  } else {
-    contentArea.classList.add("workDone");
-    contentArea.children[0].classList.add("checkDisplayVisible");
-    pElem.classList.add("line-through");
-  }
+
+  contentArea.classList.toggle("workDone");
+  contentArea.children[0].classList.toggle("checkDisplayVisible");
+  pElem.classList.toggle("line-through");
 }
 //list work done logic ends here
 
@@ -81,3 +76,14 @@ function deleteList(argu) {
   localStorage.setItem("lists", JSON.stringify(listsObj));
   addList();
 }
+
+// inputBox word limit logic
+let inputBox = document.getElementById("toDoInput");
+inputBox.addEventListener("keypress", () => {
+  let warning = document.getElementsByClassName("maxLimitExceeded")[0];
+  if (inputBox.value.length > 80) {
+    warning.style.visibility = "visible";
+  } else {
+    warning.style.visibility = "hidden";
+  }
+});

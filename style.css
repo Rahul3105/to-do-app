@@ -103,6 +103,15 @@ html {
 .line-through {
   text-decoration: line-through;
 }
+
+.maxLimitExceeded {
+  color: red;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  visibility: hidden;
+}
 @media (max-width: 882px) {
   html {
     font-size: 52.5%;
