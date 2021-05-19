@@ -59,10 +59,10 @@ html {
   max-height: auto;
   position: relative;
   align-items: center;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .lists:hover {
   background: rgba(190, 75, 219, 0.452);

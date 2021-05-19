@@ -2,43 +2,58 @@
 let addBtn = document.getElementById("addBtn");
 let listContainer = document.getElementById("listContainer");
 
-let uniqueNumForLists = 0;
-addBtn.addEventListener("click", addList);
+addBtn.addEventListener("click", addLocalStorage());
 document.addEventListener("keypress", (e) => {
   if (e.key == "Enter") {
-    addList();
+    addLocalStorage();
   }
 });
-// adding lists logic starts form here
 
-function addList() {
+addList();
+
+// adding lists logic starts form here
+function addLocalStorage() {
   let inputBox = document.getElementById("toDoInput");
   if (inputBox.value != "") {
-    // here i wrote logic for the text --> "you have not added anything yet"
-    if (
-      listContainer.children.length != 0 &&
-      listContainer.children[0].id == "temp"
-    ) {
-      listContainer.removeChild(document.getElementById("temp"));
-    }
-    // to add local storage i call this function
-    let listsObj = addLocalStorage(inputBox.value);
-    // here i am creating new list and added that input value to that
-
-    let newList = document.createElement("div");
-    newList.classList = "lists";
-    newList.id = `${uniqueNumForLists}`;
-    newList.onclick = listWorkDone.bind(newList, uniqueNumForLists);
-    newList.innerHTML = `<i class="fas fa-check"></i>
-    <p>${inputBox.value}</p>
-    <i class="fas fa-times" onclick='deleteList(${uniqueNumForLists})'></i>`;
-    listContainer.append(newList);
+    let localStorageLists = localStorage.getItem("lists");
+    localStorageLists == null
+      ? (listsObj = [])
+      : (listsObj = JSON.parse(localStorageLists));
+    listsObj.push(inputBox.value);
+    localStorage.setItem("lists", JSON.stringify(listsObj));
     inputBox.value = "";
-    uniqueNumForLists++;
+    addList();
   }
 }
-// adding list logic ends here
-
+function addList() {
+  // here i wrote logic for the text --> "you have not added anything yet"
+  if (
+    listContainer.children.length != 0 &&
+    listContainer.children[0].id == "temp"
+  ) {
+    listContainer.removeChild(document.getElementById("temp"));
+  }
+  let localStorageLists = localStorage.getItem("lists");
+  localStorageLists == null
+    ? (listsObj = [])
+    : (listsObj = JSON.parse(localStorageLists));
+  listContainer.innerHTML = "";
+  listsObj.forEach((elem, ind) => {
+    let newList = document.createElement("div");
+    newList.classList = "lists";
+    newList.id = `${ind}`;
+    newList.onclick = listWorkDone.bind(newList, ind);
+    newList.innerHTML = `<i class="fas fa-check"></i>
+    <p>${elem}</p>
+    <i class="fas fa-times" onclick='deleteList(${ind})'></i>`;
+    listContainer.append(newList);
+  });
+  if (listsObj.length == 0) {
+    listContainer.innerHTML = `<div class="lists" id="temp">
+                <p>There is nothing to show <i class="fas fa-frown"></i></p>
+            </div>`;
+  }
+}
 /// list work done logic starts here
 
 function listWorkDone(argu) {
@@ -55,21 +70,9 @@ function listWorkDone(argu) {
 
 ///deleting the lists
 function deleteList(argu) {
-  listContainer.removeChild(document.getElementById(argu));
-}
-
-///storing lists in local storage logic starts form here
-
-function addLocalStorage(inputVal) {
   let localStorageLists = localStorage.getItem("lists");
-  if (localStorageLists == null) {
-    listsObj = [];
-  } else {
-    listsObj = JSON.parse(localStorageLists);
-  }
-  // console.log(listsObj);
-  // console.log(inputVal);
-  listsObj.push(inputVal);
+  listsObj = JSON.parse(localStorageLists);
+  listsObj.splice(argu, 1);
   localStorage.setItem("lists", JSON.stringify(listsObj));
-  return listsObj;
+  addList();
 }
